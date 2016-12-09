@@ -9,7 +9,8 @@
 import UIKit
 
 class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
+   var articles = [Article]()
     
     @IBOutlet weak var feedTableView: UITableView!
     
@@ -19,16 +20,34 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return articles.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        
+        let cell = feedTableView.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath) as! FeedTableViewCell
+        
+            
+        fetchImage(stringURL: articles[indexPath.row].urlToImage) { result in
+            cell.articleImage.image = result
+        }
+
+        
+        cell.titleLabel.text = articles[indexPath.row].title
+        cell.publishedAtLabel.text = articles[indexPath.row].publishedAt
+        
+        return cell
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        fetchData(closure: { data in
+            
+            self.feedTableView.reloadData()
+        
+        })
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,15 +55,66 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func fetchData(closure: @escaping ([Article?]) -> ()) {
+        
+        let endpoint = "https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=ad1d0f68b521404998548d5368f50b4e"
+        
+        let url = URLRequest(url: URL(string: endpoint)!)
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        let task = session.dataTask(with: url) { (data, response, error) in
+            
+            // TODO: add error handling
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            
+            do {
+                
+                if let json = try JSONSerialization.jsonObject(with: responseData, options: .mutableContainers) as? [String: Any] {
+                    
+                    
+                    let articlesJSON = json["articles"] as! [[String: Any]]
+                    
+                    for articleJSON in articlesJSON {
+                        
+                        let article = Article(jsonObject: articleJSON)
+                        self.articles.append(article)
+                        print(articleJSON)
+                        
+                        // TODO create article from articleJSON
+                        // append to [Articles]
+                        
+                    }
+                    DispatchQueue.main.async {
+                        closure(self.articles)
+                    }
+                }
+                
+            } catch {
+                print(error)
+            }
+            
+           
+        }
+        task.resume()
     }
-    */
-
+    
+    func fetchImage(stringURL: String, completionHandler: @escaping (UIImage?) -> ()) {
+        DispatchQueue.global(qos: .background).async {
+            let url = URL(string: stringURL)!
+            URLSession.shared.dataTask(with: url) { (data, _, _) in
+                guard let responseData = data else {
+                    completionHandler(nil)
+                    return
+                }
+                
+                let image = UIImage(data: responseData)
+                DispatchQueue.main.async {
+                    completionHandler(image)
+                    
+                }
+            }.resume()
+        }
+    }
 }
