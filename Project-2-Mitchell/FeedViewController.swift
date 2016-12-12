@@ -27,6 +27,18 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let cell = feedTableView.dequeueReusableCell(withIdentifier: "feedCell", for: indexPath) as! FeedTableViewCell
         
+//        cell.layer.cornerRadius = 10
+//        cell.contentView.layer.masksToBounds = true
+//        
+//        cell.contentView.layer.cornerRadius = 10
+//        cell.contentView.layer.masksToBounds = true
+        
+        cell.articleImage.layer.cornerRadius = 8
+        cell.articleImage.layer.masksToBounds = true
+        
+        cell.gradientOverlay.layer.cornerRadius = 8
+        cell.gradientOverlay.layer.masksToBounds = true
+        
             
         fetchImage(stringURL: articles[indexPath.row].urlToImage) { result in
             cell.articleImage.image = result
@@ -41,6 +53,8 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //self.edgesForExtendedLayout = .top
 
         fetchData(closure: { data in
             
@@ -49,6 +63,7 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         })
 
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

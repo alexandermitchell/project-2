@@ -12,6 +12,7 @@ class FeedTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     
+    @IBOutlet weak var gradientOverlay: UIImageView!
     @IBOutlet weak var publishedAtLabel: UILabel!
     
     @IBOutlet weak var articleImage: UIImageView!
