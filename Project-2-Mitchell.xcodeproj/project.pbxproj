@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D07C8BA51E032D2500E440E0 /* HikarianLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07C8BA41E032D2500E440E0 /* HikarianLibrary.swift */; };
+		D07C8BA71E034A0E00E440E0 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07C8BA61E034A0E00E440E0 /* Date.swift */; };
 		D0C166611DF895250046EFD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C166601DF895250046EFD7 /* AppDelegate.swift */; };
 		D0C166661DF895250046EFD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C166641DF895250046EFD7 /* Main.storyboard */; };
 		D0C166681DF895250046EFD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C166671DF895250046EFD7 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D07C8BA41E032D2500E440E0 /* HikarianLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HikarianLibrary.swift; sourceTree = "<group>"; };
+		D07C8BA61E034A0E00E440E0 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		D0C1665D1DF895250046EFD7 /* Project-2-Mitchell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project-2-Mitchell.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C166601DF895250046EFD7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0C166651DF895250046EFD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -61,7 +65,9 @@
 				D0C166771DF89C660046EFD7 /* UI */,
 				D0C166761DF89C470046EFD7 /* FeedView */,
 				D0C166601DF895250046EFD7 /* AppDelegate.swift */,
+				D07C8BA41E032D2500E440E0 /* HikarianLibrary.swift */,
 				D0C166791DF8AB220046EFD7 /* Article.swift */,
+				D07C8BA61E034A0E00E440E0 /* Date.swift */,
 				D0C166671DF895250046EFD7 /* Assets.xcassets */,
 				D0C1666C1DF895250046EFD7 /* Info.plist */,
 			);
@@ -160,6 +166,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0C1667A1DF8AB220046EFD7 /* Article.swift in Sources */,
+				D07C8BA71E034A0E00E440E0 /* Date.swift in Sources */,
+				D07C8BA51E032D2500E440E0 /* HikarianLibrary.swift in Sources */,
 				D0C166731DF89B850046EFD7 /* FeedViewController.swift in Sources */,
 				D0C166751DF89C2E0046EFD7 /* FeedTableViewCell.swift in Sources */,
 				D0C166611DF895250046EFD7 /* AppDelegate.swift in Sources */,
@@ -326,6 +334,7 @@
 				D0C166711DF895250046EFD7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

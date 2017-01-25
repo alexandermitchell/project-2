@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -43,12 +44,37 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
         fetchImage(stringURL: articles[indexPath.row].urlToImage) { result in
             cell.articleImage.image = result
         }
-
         
+
         cell.titleLabel.text = articles[indexPath.row].title
-        cell.publishedAtLabel.text = articles[indexPath.row].publishedAt
+        
+        let publishedAt = articles[indexPath.row].publishedAt.replacingOccurrences(of: "T", with: " ")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+        
+        //"2016-12-15T22:05:24Z"
+        let date = dateFormatter.date(from: publishedAt)
+        
+        let date2 = Date()
+        
+        cell.publishedAtLabel.text = date2.offset(from: date!) + " " + "ago"
+        
+        print("\n")
+        print(date2.offset(from: date!))
+        
+        
+        //cell.publishedAtLabel.text = date?.offset(from: Date())
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let article = articles[indexPath.row]
+        let svc = SFSafariViewController(url: URL(string: article.urlToArticle)!)
+        
+        present(svc, animated: true, completion:nil)
+        
     }
 
     override func viewDidLoad() {
@@ -123,11 +149,9 @@ class FeedViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     completionHandler(nil)
                     return
                 }
-                
                 let image = UIImage(data: responseData)
                 DispatchQueue.main.async {
                     completionHandler(image)
-                    
                 }
             }.resume()
         }
